@@ -22,4 +22,4 @@ example:
 
 ### Standalone
 1. Inside of folder run local php server. For example `php -S localhost:8000`.
-2. Done. Go to that page in browser
+2. Done. Go to that page in browser.
