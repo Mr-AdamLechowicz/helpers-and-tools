@@ -20,6 +20,7 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>STANDALONE TOOLS</title>
     <style>*{box-sizing: border-box;}.cbp-menu{width: 100%; display: flex; align-items: flex-start; flex-wrap: wrap; justify-content: flex-start;gap: 0.5rem; margin-bottom: 1rem;}</style>
     <link id="cbp_tool-style" rel="stylesheet" href="/assets/style.css">
