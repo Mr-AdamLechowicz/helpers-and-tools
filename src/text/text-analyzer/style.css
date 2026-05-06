@@ -30,7 +30,6 @@
     width: fit-content;
     padding: 5px 15px 5px 15px;
     margin-inline: auto;
-    margin-top: 1rem;
 
     &.max{
       color: red;
@@ -61,7 +60,7 @@
       transition-duration: 0.4s;
       cursor: pointer;
     } :hover {
-      background: #969696;
+      background: #b6b6b6;
     }
   }
 
