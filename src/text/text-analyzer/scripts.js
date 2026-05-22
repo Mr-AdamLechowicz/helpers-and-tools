@@ -1,6 +1,5 @@
-const textAnalyzers = document.querySelectorAll('.js-text-analyzer');
 
-textAnalyzers.forEach(textAnalyzer => {
+document.querySelectorAll('.js-text-analyzer').forEach(textAnalyzer => {
   const input = textAnalyzer.querySelector('.js-textarea');
   const counterLetters = textAnalyzer.querySelector('.js-counter-letters');
   const counterLettersNoSpace = textAnalyzer.querySelector('.js-counter-letters-no-space');
@@ -8,57 +7,46 @@ textAnalyzers.forEach(textAnalyzer => {
   const counterSentences = textAnalyzer.querySelector('.js-counter-sentences');
   const counterStandardTextPage = textAnalyzer.querySelector('.js-counter-standerd-text-page');
   const counterReadTime = textAnalyzer.querySelector('.js-counter-read-time');
+  const stats = {};
 
-  input.addEventListener("input", (e) => {
-    
-    //counter for letters with spacers
-    let lettersLength = 0;
-    lettersLength = e.target.value.length;
-    counterLetters.innerHTML = lettersLength;
+  input.addEventListener('input', (e) => {
+    gatherStats();
+    renderStats(stats);
+    function gatherStats() {
+      stats.lettersLength = e.target.value.length;
+      stats.lettersLengthNoSpace = e.target.value.split('').filter((value) => {
+        return value != ' ';
+      });
 
-    //counter for letters without spacers
-    let lettersLengthNoSpace = 0;
-    const letterArray = e.target.value.split('');
-    lettersLengthNoSpace = letterArray.filter((value) => {
-      return value != ' ';
-    });
-    counterLettersNoSpace.innerHTML = lettersLengthNoSpace.length;
+      // using regexp, all signs in [] will be replaced as ' ' (meaning space), then it create array that store all words separately, then we count it.
+      stats.wordLength = e.target.value.replaceAll(/[,/.?!+=""''_\-(){}:;><|[\]\\]/g, ' ').split(' ').filter((value) => {
+        return value;
+      });
+      stats.sentenceLenght = e.target.value.replaceAll(/[?!]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => {
+        return value != '';
+      });
+      stats.standardTextPage = Number.parseFloat(stats.lettersLength/1800).toFixed(2);
+      stats.readTime = `${Number.parseFloat(stats.wordLength.length/200).toFixed()} min`;
+    }
 
-    //counter for words
-    let wordLength = 0;
-    const wordArray = e.target.value.replaceAll(/[,/.?!+=""''_\-(){}:;><|[\]\\]/g, ' ').split(' ');
-    wordLength = wordArray.filter((value) => {
-      return value;
-    });
-    counterWords.innerHTML = wordLength.length;
-
-    // counter for sentences
-    let sentenceLenght = 0;
-    const sentenceArray = e.target.value.replaceAll(/[?!]/g, '.').replaceAll(/\s/g,'').split('.');
-    sentenceLenght = sentenceArray.filter((value) => {
-      return value != '';
-    });
-    counterSentences.innerHTML = sentenceLenght.length;
-
-    // counter for standard text page
-    counterStandardTextPage.innerHTML = Number.parseFloat(lettersLength/1800).toFixed(2);
-
-    //counter for read time 
-    counterReadTime.innerHTML = `${Number.parseFloat(wordLength.length/200).toFixed()} min`;
+    function renderStats(stats) {
+      counterLetters.innerHTML = stats.lettersLength;
+      counterLettersNoSpace.innerHTML = stats.lettersLengthNoSpace.length;
+      counterWords.innerHTML = stats.wordLength.length;
+      counterSentences.innerHTML = stats.sentenceLenght.length;
+      counterStandardTextPage.innerHTML = stats.standardTextPage;
+      counterReadTime.innerHTML = stats.readTime;
+    }
   });
 
-  //btn for text eraser
-  const btnEraser = textAnalyzer.querySelector('.js-btn-eraser');
-  btnEraser.addEventListener('click' , () => {
-    input.value = ""
-    input.dispatchEvent(new Event('input'))
+  textAnalyzer.querySelector('.js-btn-eraser').addEventListener('click' , () => {
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
   });
 
-  //btn for text cleaner
-  const btnCleaner = textAnalyzer.querySelector('.js-btn-cleaner');
-  btnCleaner.addEventListener('click', () => {
+  textAnalyzer.querySelector('.js-btn-cleaner').addEventListener('click', () => {
     input.value = input.value.replaceAll(/[\s]/g, ' ').trim();
     input.value = input.value.replaceAll(/ + /g, ' ').trim();
-    input.dispatchEvent(new Event('input'))
-  })
+    input.dispatchEvent(new Event('input'));
+  });
 });
