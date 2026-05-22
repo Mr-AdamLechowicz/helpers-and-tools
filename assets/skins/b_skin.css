@@ -1,3 +1,5 @@
 .b_skin {
-  --background: yellow;
+  &.cbp-tool, .cbp-tool{
+    --background: yellow;
+  }
 }

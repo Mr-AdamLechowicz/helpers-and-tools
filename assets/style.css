@@ -1,3 +1,5 @@
 .cbp-tool {
+  --background: purple;
+
   background-color: var(--background);
 }

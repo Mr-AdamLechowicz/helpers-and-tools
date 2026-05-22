@@ -1,3 +1,5 @@
 .a_skin {
-  --background: red;
+  &.cbp-tool, .cbp-tool{
+    --background: red;
+  }
 }
