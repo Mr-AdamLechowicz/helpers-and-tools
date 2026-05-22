@@ -1,0 +1,64 @@
+
+<div class="encrypter">
+  <div class="settings">
+    <div class="settings-icon js-settings-icon">⚙️</div>
+    <div class="btn-filters-wrapper">
+      <div class="checkboxes-wrapper ">
+        <div><b>Po odznaczeniu z tekstu znikną:</b></div>
+        <div class="checkbox-elemnet">
+          <input id="emoji" type="checkbox" checked>
+          <label class="filter-label" for="emoji">Emoji</label>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="big-letters" type="checkbox" checked>
+          <label class="filter-label" for="big-letters">Duże litery</label>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="polish-letters" type="checkbox" checked>
+          <label class="filter-label" for="polish-letters">Polskie znaki</label>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="duble-space" type="checkbox" checked>
+          <label class="filter-label" for="duble-space">Powtarzające spacje</label>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="tab" type="checkbox" checked>
+          <label class="filter-label" for="tab">Wcięcia (Tab)</label>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="html-characters" type="checkbox" checked>
+          <label class="filter-label" for="html-characters">Znaki HTML</label>
+          <div class="info-text">Wszystkie niewidzialne znaki HTML typu: "br, nbsp, b" itp.</div>
+        </div>
+        <div class="checkbox-elemnet">
+          <input id="only-text" type="checkbox" checked>
+          <label class="filter-label" for="only-text">Znaki interpunkcyjne <br> i diakrytyczne</label>
+        </div>
+        <div class="btn btn-start-filter js-btn-start-filter">Filtruj</div>
+      </div>
+    </div>
+  </div>
+  <textarea name="normal-text" class="textarea js-normal-text" rows="7" placeholder="Napisz coś..."></textarea>
+  <div class="btns">
+    <div class="key-input-wrapper">
+      <input class="key-input js-key-input" type="text"/>
+      <div class="key-input-counter js-key-input-counter">0</div>
+    </div>
+    <div class="btn js-btn-cipher">Zaszyfruj</div>
+    <div class="btn js-btn-un-cipher">Odszyfruj</div>
+    <div class="cypher-select-wrapper">
+      <label class="select-label">Wybierz szyfr</label>
+      <select id="cypher-select" class="btn cypher-select">
+        <option value="vigenere" selected>Szyfr Vigenère'a</option>
+        <option value="?">Szyfr ?</option>
+        <option value="??">Szyfr ??</option>
+        <option value="???">Szyfr ???</option>
+      </select>
+    </div>
+  </div>
+  <textarea name="encrypted-text" class="textarea encrypted-text js-encrypted-text" rows="7" disabled></textarea>
+  <div class="btns last-btns-row">
+    <div class="btn btn-copy js-btn-copy">Kopiuj do schowka</div>
+    <div class="btn js-btn-cipher-cleaner">Usuń tekst</div>
+  </div>
+</div>
