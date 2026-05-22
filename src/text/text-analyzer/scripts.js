@@ -1,4 +1,4 @@
-(() => {
+;(() => {
   document.querySelectorAll('.js-text-analyzer').forEach(textAnalyzer => {
     const input = textAnalyzer.querySelector('.js-textarea');
     const counterLetters = textAnalyzer.querySelector('.js-counter-letters');
@@ -26,28 +26,18 @@
     });
 
     function gatherStats(e) {
-      stats.chartsCount = e.target.value.length;
-      stats.chartsNoSpaceCount = e.target.value.split('').filter((value) => {
-        return value != ' ';
-      }).length;
-
+      stats.charsCount = e.target.value.length;
+      stats.charsNoSpaceCount = e.target.value.split('').filter((value) => value != ' ').length;
       // using regexp, all signs in [] will be replaced as ' ' (meaning space), then it create array that store all words separately, then we count it.
-      stats.wordCount = e.target.value.replaceAll(/[,/.?!+=""''_\-(){}:;><|[\]\\@#&]/g, ' ').split(' ').filter((value) => {
-        return value;
-      }).length;
-      stats.sentenceCount = e.target.value.replaceAll(/[?!]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => {
-        return value != '';
-      }).length;
-      stats.standardTextPageCount = Number.parseFloat(parseFloat(stats.chartsCount/1800).toFixed(2));
+      stats.wordCount = e.target.value.replaceAll(/\W/g, ' ').split(' ').filter((value) =>  value).length;
+      stats.sentenceCount = e.target.value.replaceAll(/[?!]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => value != '').length;
+      stats.standardTextPageCount = Number.parseFloat(parseFloat(stats.charsCount/1800).toFixed(2));
       stats.readTimeCount = parseFloat((Math.floor(stats.wordCount/2.5)));
-      // stats.readTimeCount = `${Math.floor(readTimeRawCount / 60)}:${readTimeRawCount % 60}`;
-      // readTimeCount = `${Math.floor(readTimeCount / 60)}:${readTimeCount % 60}`;
-      console.log(stats)
     }
 
     function renderStats(stats) {
-      counterLetters.innerHTML = stats.chartsCount;
-      counterLettersNoSpace.innerHTML = stats.chartsNoSpaceCount;
+      counterLetters.innerHTML = stats.charsCount;
+      counterLettersNoSpace.innerHTML = stats.charsNoSpaceCount;
       counterWords.innerHTML = stats.wordCount;
       counterSentences.innerHTML = stats.sentenceCount;
       counterStandardTextPageCount.innerHTML = stats.standardTextPageCount;
