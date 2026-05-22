@@ -44,14 +44,22 @@
 
   $menu_tools = '<div><code>TOOL:</code>';
   foreach ($files as $file) {
-    $menu_tools .= sprintf('<label><input type="radio" name="tool" value="%1$s" %2$s>%1$s</label>', $file, ($tool == $file ? 'checked' : ''));
+    $menu_tools .= sprintf(
+      '<label><input type="radio" name="tool" value="%1$s" %2$s>%1$s</label>',
+      $file,
+      $tool == $file ? 'checked' : ''
+    );
   }
   $menu_tools .= '</div>';
 
   $menu_skins = '<div><code>SKIN:</code>';
   $menu_skins .= '<label><input type="radio" name="skin" value="" checked>Default</label>';
   foreach ($skins as $loadedSkin) {
-    $menu_skins .= sprintf('<label><input type="radio" name="skin" value="%1$s" %2$s>%1$s</label>', $loadedSkin, ($_GET['skin'] == $loadedSkin ? 'checked' : ''));
+    $menu_skins .= sprintf(
+      '<label><input type="radio" name="skin" value="%1$s" %2$s>%1$s</label>',
+      $loadedSkin,
+      $_GET['skin'] == $loadedSkin ? 'checked' : ''
+    );
   }
   $menu_skins .= '</div>';
 ?>
