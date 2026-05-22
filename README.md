@@ -8,8 +8,6 @@ Each tool NEED to be assigned to specific category, and be placed in correspondi
 ## TOOLS
 ### Available tools
 * `text/word-counter` - Counts words
-* `text/text-analyzer` - Counts symbols (with and without spaces), words, sentences, standard text pages, time to read and button to clear text from HTML elements, fonts, colors, etc.
-* `text/text-encryption-tool` - cypher text
 
 ## INTEGRATION
 ### Wordpress
