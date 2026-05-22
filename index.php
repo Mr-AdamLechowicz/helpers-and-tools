@@ -1,18 +1,18 @@
 <?php
-  $tool = str_replace( ['..', '../', '.', './'], '', $_GET['tool'] );
+  $tool = str_replace(['..', '../', '.', './'], '', $_GET['tool']);
   $style = '';
   $html = '<h1>No tool picked / Tool not found</h1>';
   $script = '';
   $skin = $_GET['skin'] ?: null;
 
   $files = [];
-  foreach (glob(__DIR__.'/src/{*/*,*/*/*}.html',GLOB_BRACE) as $file) {
-    $files[] = str_replace( [__DIR__.'/src/', '/index.html'], '', $file );
+  foreach (glob(__DIR__.'/src/{*/*,*/*/*}.html', GLOB_BRACE) as $file) {
+    $files[] = str_replace([__DIR__.'/src/', '/index.html'], '', $file);
   }
 
   $skins = [];
-  foreach (glob(__DIR__.'/assets/skins/{*}.css',GLOB_BRACE) as $file) {
-    $skins[] = str_replace( [__DIR__.'/assets/skins/', '.css'], '', $file );
+  foreach (glob(__DIR__.'/assets/skins/{*}.css', GLOB_BRACE) as $file) {
+    $skins[] = str_replace([__DIR__.'/assets/skins/', '.css'], '', $file);
   }
 
   if ($tool && file_exists(__DIR__."/src/{$tool}/index.html")) {
@@ -43,12 +43,16 @@
   $inlineStyle .= '</style>';
 
   $menu_tools = '<div><code>TOOL:</code>';
-  foreach ($files as $file): $menu_tools .= sprintf('<label><input type="radio" name="tool" value="%1$s" %2$s>%1$s</label>', $file, ($tool == $file ? 'checked' : '')); endforeach;
+  foreach ($files as $file) {
+    $menu_tools .= sprintf('<label><input type="radio" name="tool" value="%1$s" %2$s>%1$s</label>', $file, ($tool == $file ? 'checked' : ''));
+  }
   $menu_tools .= '</div>';
 
   $menu_skins = '<div><code>SKIN:</code>';
   $menu_skins .= '<label><input type="radio" name="skin" value="" checked>Default</label>';
-  foreach ($skins as $loadedSkin): $menu_skins .= sprintf('<label><input type="radio" name="skin" value="%1$s" %2$s>%1$s</label>', $loadedSkin, ($_GET['skin'] == $loadedSkin ? 'checked' : '')); endforeach;
+  foreach ($skins as $loadedSkin) {
+    $menu_skins .= sprintf('<label><input type="radio" name="skin" value="%1$s" %2$s>%1$s</label>', $loadedSkin, ($_GET['skin'] == $loadedSkin ? 'checked' : ''));
+  }
   $menu_skins .= '</div>';
 ?>
 
