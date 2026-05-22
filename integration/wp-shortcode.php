@@ -12,7 +12,10 @@ add_shortcode( 'cbp_tool', function ($atts) {
   wp_enqueue_style( 'cbp_tool-style', TOOLS.'/assets/style.css', [], '0.1' );
   wp_enqueue_script( 'cbp_tool-scripts', TOOLS.'/assets/scripts.js', [], '0.1', $footer = true );
 
-  $atts = shortcode_atts(['tool' => '',], $atts, 'cbp_tool' );
+  $atts = shortcode_atts([
+    'tool' => '',
+    'skin' => null,
+  ], $atts, 'cbp_tool' );
 
   if ($atts['tool'] == 'all') {
     $files = [];
@@ -32,11 +35,35 @@ add_shortcode( 'cbp_tool', function ($atts) {
     if (file_exists($toolPath)) {
       wp_enqueue_style( "cbp_tool-{$atts['tool']}-style", $tool . 'style.css', [], '1.0.0' );
       wp_enqueue_script( "cbp_tool-{$atts['tool']}-scripts", $tool . 'scripts.js', [], '1.0.0', $footer = true );
-      $html = file_get_contents($toolPath);
+
+      if ($atts['skin']) {
+        wp_enqueue_style( "cbp_tool-{$atts['skin']}-skin", TOOLS."/assets/skins/{$atts['skin']}.css", ["cbp_tool-style"], '1.0.0' );
+      }
+
+      $html = "<div class=\"cbp-tool " . ($atts['skin'] ?: '') . "\">" . file_get_contents($toolPath) . "</div>";
     } else {
       $html =  "<pre>{$atts['tool']} - NOT FOUND</pre>";
     }
   }
 
   return $html;
+});
+
+add_shortcode( 'cbp_skin', function ($atts) {
+  if (!defined('TOOLS')): define('TOOLS', '/wp-content/tools'); endif;
+  wp_enqueue_style( 'cbp_tool-style', TOOLS.'/assets/style.css', [], '0.1' );
+  wp_enqueue_script( 'cbp_tool-scripts', TOOLS.'/assets/scripts.js', [], '0.1', $footer = true );
+
+  $atts = shortcode_atts([
+    'skin' => null,
+  ], $atts, 'cbp_tool' );
+
+  if ($atts['skin']) {
+    wp_enqueue_style( "cbp_tool-{$atts['skin']}-skin", TOOLS."/assets/skins/{$atts['skin']}.css", ["cbp_tool-style"], '1.0.0' );
+
+    add_filter('body_class', function($classes) use($atts) {
+      $classes[] = $atts['skin'];
+      return $classes;
+    });
+  }
 });
