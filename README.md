@@ -32,12 +32,12 @@ To add new skin create css file in `assets/skins/`. File name and skin class mus
 
 
 ### Shordcode version
-For single shortcode
+For all shortcodes (if not set for specific shortcode)
 ``` html
   [cbp_skin skin="__SKIN_NAME__"]
 ```
 
-For all shortcodes (if not set for specific shortcode)
+For single shortcode
 ``` html
   [cbp_tool tool="__TOOL_NAME__" skin="__SKIN_NAME__"]
 ```
