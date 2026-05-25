@@ -26,22 +26,21 @@
     });
 
     function gatherStats(e) {
-      stats.charsCount = e.target.value.length;
-      stats.charsNoSpaceCount = e.target.value.split('').filter((value) => value != ' ').length;
-      // using regexp, all signs in [] will be replaced as ' ' (meaning space), then it create array that store all words separately, then we count it.
-      stats.wordCount = e.target.value.replaceAll(/\W/g, ' ').split(' ').filter((value) =>  value).length;
-      stats.sentenceCount = e.target.value.replaceAll(/[?!]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => value != '').length;
-      stats.standardTextPageCount = Number.parseFloat(parseFloat(stats.charsCount/1800).toFixed(2));
-      stats.readTimeCount = parseFloat((Math.floor(stats.wordCount/2.5)));
+      stats.chars = e.target.value.length;
+      stats.charsNoSpace = e.target.value.split('').filter((value) => value != ' ').length;
+      stats.word = e.target.value.replaceAll(/\W/g, ' ').split(' ').filter((value) =>  value).length;
+      stats.sentence = e.target.value.replaceAll(/[?!…]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => value != '').length;
+      stats.standardTextPage = Number.parseFloat(parseFloat(stats.chars/1800).toFixed(2));
+      stats.readTime = parseFloat((Math.floor(stats.word/2.5)));
     }
 
     function renderStats(stats) {
-      counterLetters.innerHTML = stats.charsCount;
-      counterLettersNoSpace.innerHTML = stats.charsNoSpaceCount;
-      counterWords.innerHTML = stats.wordCount;
-      counterSentences.innerHTML = stats.sentenceCount;
-      counterStandardTextPageCount.innerHTML = stats.standardTextPageCount;
-      counterReadTime.innerHTML = `${Math.floor(stats.readTimeCount / 60)}:${stats.readTimeCount % 60}`;
+      counterLetters.innerHTML = stats.chars;
+      counterLettersNoSpace.innerHTML = stats.charsNoSpace;
+      counterWords.innerHTML = stats.word;
+      counterSentences.innerHTML = stats.sentence;
+      counterStandardTextPageCount.innerHTML = stats.standardTextPage;
+      counterReadTime.innerHTML = `${Math.floor(stats.readTime / 60)}:${stats.readTime % 60}`;
     }
   });
 })();

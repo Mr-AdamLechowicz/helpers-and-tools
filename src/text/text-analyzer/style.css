@@ -1,8 +1,6 @@
 .text-analyzer {
   position: relative;
   padding-block: 1rem;
-  container-name: counter;
-  container-type: inline-size;
   display: flex;
   flex-direction: row;
   gap: 1rem;
