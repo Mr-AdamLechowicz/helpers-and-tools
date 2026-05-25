@@ -10,7 +10,7 @@
     const stats = {};
 
     input.addEventListener('input', (e) => {
-      gatherStats(e);
+      gatherStats(e.target.value);
       renderStats(stats);
     });
 
@@ -25,11 +25,11 @@
       input.dispatchEvent(new Event('input'));
     });
 
-    function gatherStats(e) {
-      stats.chars = e.target.value.length;
-      stats.charsNoSpace = e.target.value.split('').filter((value) => value != ' ').length;
-      stats.word = e.target.value.replaceAll(/\W/g, ' ').split(' ').filter((value) =>  value).length;
-      stats.sentence = e.target.value.replaceAll(/[?!…]/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => value != '').length;
+    function gatherStats(value) {
+      stats.chars = value.length;
+      stats.charsNoSpace = value.split('').filter((value) => value != ' ').length;
+      stats.word = value.replaceAll(/\W/g, ' ').split(' ').filter((value) =>  value).length;
+      stats.sentence = value.replaceAll(/\?|!|…/g, '.').replaceAll(/\s/g,'').split('.').filter((value) => value != '').length;
       stats.standardTextPage = Number.parseFloat(parseFloat(stats.chars/1800).toFixed(2));
       stats.readTime = parseFloat((Math.floor(stats.word/2.5)));
     }
