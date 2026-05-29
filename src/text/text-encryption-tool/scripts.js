@@ -4,11 +4,10 @@
     const inputEncrypted = encrypter.querySelector('.js-encrypted-text');
 
     let key = encrypter.querySelector('.js-key-input');
-    let keyCounter = encrypter.querySelector('.js-key-input-counter');
 
     // for key counter under key input
     key.addEventListener('input', (e) => {
-      keyCounter.innerHTML = e.target.value.length;
+      encrypter.querySelector('.js-key-input-counter').innerHTML = e.target.value.length;
     });
 
     // for cipher btn
@@ -19,18 +18,19 @@
           window.alert('NIE PODANO KLUCZA');
           return;
         }
+        encryptionStatus()
         cypherSelect(key.value, e);
       });
 
     // for uncipher btn
     encrypter.querySelector('.js-btn-un-cipher')
       .addEventListener('click' , (e) => {
-        console.log(e.target);
         inputEncrypted.innerHTML = '';
         if (key.value.length == 0) {
           window.alert('NIE PODANO KLUCZA');
           return;
         }
+        encryptionStatus();
         cypherSelect(key.value, e);
       });
 
@@ -100,6 +100,7 @@ ten komunikat pokaże się tylko raz`)) {
       let result = '';
       const isUncipher = e.target.classList.contains('js-btn-un-cipher');
       inputNormal.value.split('').forEach(textLetter => {
+        // console.log(textLetter)
         if (i >= key.length){i = 0}
         // console.log(textLetter.codePointAt());
         if (isNaN(key[i])) {
@@ -108,6 +109,7 @@ ten komunikat pokaże się tylko raz`)) {
         // console.log(key[i]);
 
         let number = textLetter.codePointAt() + parseInt(key[i]);
+        console.log(number)
         if (isUncipher) {
           number = textLetter.codePointAt() - parseInt(key[i]);
         }
@@ -118,6 +120,7 @@ ten komunikat pokaże się tylko raz`)) {
         result += String.fromCodePoint(number);
       });
       inputEncrypted.insertAdjacentHTML('beforeend', result);
+      
       const endTime = performance.now();
       const executionTime = endTime - startTime;
       console.log(`Funkcja wykonała się w czasie: ${executionTime.toFixed(2)} ms`);
@@ -139,9 +142,14 @@ ten komunikat pokaże się tylko raz`)) {
               inputNormal.value = inputNormal.value.toLowerCase();
               break;
 
+            // case "polish-letters":
+            //   console.log('polish-letters');
+            //   inputNormal.value = inputNormal.value.replaceAll(/\ą/g, 'a').replaceAll(/\Ą/g, 'A').replaceAll(/\ć/g, 'c').replaceAll(/\Ć/g, 'C').replaceAll(/\ę/g, 'e').replaceAll(/\Ę/g, 'E').replaceAll(/\ł/g, 'l').replaceAll(/\Ł/g, 'L').replaceAll(/\ń/g, 'n').replaceAll(/\Ń/g, 'N').replaceAll(/\ó/g, 'o').replaceAll(/\Ó/g, 'O').replaceAll(/\ś/g, 's').replaceAll(/\Ś/g, 'S').replaceAll(/[ź, ż, ]/g, 'z').replaceAll(/[Ź, Ż]/g, 'Z');
+            //   break;
+
             case "polish-letters":
               console.log('polish-letters');
-              inputNormal.value = inputNormal.value.replaceAll(/[ą, ć, ę, ł, ń, ó, ś, ź, ż, Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż]/g, '');
+              inputNormal.value = replaceAllDiacriticsLetters(inputNormal.value);
               break;
 
             case "duble-space":
@@ -170,5 +178,87 @@ ten komunikat pokaże się tylko raz`)) {
         }
       });
     }
+
+    function replaceAllDiacriticsLetters(value) {
+      return value.replaceAll(/\ą/g, 'a').replaceAll(/\Ą/g, 'A').replaceAll(/\ć/g, 'c').replaceAll(/\Ć/g, 'C').replaceAll(/\ę/g, 'e').replaceAll(/\Ę/g, 'E').replaceAll(/\ł/g, 'l').replaceAll(/\Ł/g, 'L').replaceAll(/\ń/g, 'n').replaceAll(/\Ń/g, 'N').replaceAll(/\ó/g, 'o').replaceAll(/\Ó/g, 'O').replaceAll(/\ś/g, 's').replaceAll(/\Ś/g, 'S').replaceAll(/[ź, ż, ]/g, 'z').replaceAll(/[Ź, Ż]/g, 'Z')
+    }
+
+    function encryptionStatus() {
+      encrypter.querySelector('.js-encryption-status').querySelectorAll('input').forEach(input => {
+        if (input.checked == true && input.classList.contains('simple-encryption')) {
+          inputNormal.value = replaceAllDiacriticsLetters(inputNormal.value);
+
+          // jak będzie powyżej numera co jest liczba to pętla
+
+          // console.log(input);
+        }
+
+        // if (input.checked.classList.contains('.simple-encryption')) {
+        //   console.log('Simple encryption')
+        // } else {
+        //   console.log('advanced-encryption')
+        // }
+      });
+    }
+
+  // console.log(encrypt('abc', '1') === 'bcd');
+  // console.log(decrypt('bcd', '1') === 'abc');
+  // console.log(encrypt('abc', '123') === 'bdf');
+  // console.log(decrypt('bdf', '123') === 'abc');
+  console.log(encrypt('ds', '121') === 'bca');
+  // console.log(decrypt('bca', '111') === 'abz');
+  // console.log(decrypt('abc', '135') === 'zyx');
+  // console.log(decrypt('a', '1') === 'z');
+  alert();
+  function encrypt(inputs, passkey) {
+    // const output;
+    // return output;
+    // passkey = passkey.split('')
+    let result = '';
+    let i = 0;
+
+    passkey = passkey.replaceAll(/[' ']/g, '').split('');
+    // passkey[i] = passkey[i].codePointAt();
+    // console.log(passkey);
+
+    replaceAllDiacriticsLetters(inputs).replaceAll(/[\W_]/ig, '').split('').forEach(input => {
+      if (i >= passkey.length){i = 0}
+      // console.log(parseInt(passkey[i]));
+      number = input.codePointAt() + parseInt(passkey[i]);
+      console.log(number);
+      i++;
+      if (number <= 97 || number >= 122) {
+        console.log(`${number}====`);
+        keyConverted = number - 122 - 1;
+        number = 97 + keyConverted;
+        console.log(`${number}++++++`);
+      }
+      result += String.fromCodePoint(number);
+    });
+    console.log(result);
+    return result;
+  }
+
+  // function decrypt(inputs, passkey) {
+  //   let result = '';
+  //   let i = 0;
+  //   passkey = passkey.replaceAll(/[' ']/g, '').split('');
+  //   // console.log(parseInt(passkey[i]))
+
+  //   inputs.split('').forEach(input => {
+  //     if (i >= passkey.length){i = 0}
+  //     number = input.codePointAt() - parseInt(passkey[i])
+  //     i++
+  //     if (number <= 97 || number >= 122) {
+  //       console.log(`${number}====`)
+  //       keyConverted = number - 122 - 1;
+  //       number = 97 + keyConverted;
+  //       console.log(`${number}++++++`)
+  //     }
+  //     result += String.fromCodePoint(number);
+  //   });
+  //   console.log(result);
+  //   return result;
+  // }
   });
 })();

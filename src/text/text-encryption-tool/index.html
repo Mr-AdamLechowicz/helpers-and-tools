@@ -40,6 +40,20 @@
   </div>
   <textarea name="normal-text" class="textarea js-normal-text" rows="7" placeholder="Napisz coś..."></textarea>
   <div class="btns">
+    <div class="encryption-status js-encryption-status">
+      <fieldset>
+        <legend>Stan szyfrowania</legend>
+        <div class="element">
+          <input type="radio" id="simple-encryption" name="status" class="simple-encryption" checked>
+          <label for="simple-encryption" class="simple-encryption">Prosty</label>
+          <div class="info-text">Tylko litery od a-z. Znaki ortograficzne zostaną zastopione.</div>
+        </div>
+        <div class="element">
+          <input type="radio" id="advance-encryption" name="status" class="advance-encryption">
+          <label for="advance-encryption" class="advance-encryption">Zaawansowany</label>
+        </div>
+      </fieldset>
+    </div>
     <div class="key-input-wrapper">
       <input class="key-input js-key-input" type="text"/>
       <div class="key-input-counter js-key-input-counter">0</div>
