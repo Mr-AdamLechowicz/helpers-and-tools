@@ -1,0 +1,13 @@
+{
+    "name": "Word counter",
+    "author": "Adam - Cyberpack",
+    "updated": "13.04.2026",
+    "version": "1.0.0",
+    "with_AI": false,
+    "sends_data": false,
+    "private": true,
+    "energy_consumption": "minimal",
+    "commit_history": {
+        "__commit_hash__" : "commit name"
+    }
+}
